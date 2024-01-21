@@ -2,10 +2,10 @@
 </script>
 
 <template>
-  <h1>欸嘿>30</h1>
+  <router-view></router-view>
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
