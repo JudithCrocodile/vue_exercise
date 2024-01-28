@@ -16,7 +16,7 @@ let useUserStore = defineStore('User', {
     }
   },
 
-  action: {
+  actions: {
     async userLogin(data: LoginForm) {
       let result: LoginResponseData = await reqLogin(data)
       // success=>token

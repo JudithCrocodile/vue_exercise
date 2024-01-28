@@ -7,14 +7,8 @@
           <h1>Hello</h1>
           <h2>歡迎</h2>
             <el-form-item prop="username">
-              <!-- <el-input
-                :prefix-icon="User"
-                v-model="loginForm.username"
-                clearable
-                placeholder="Username"
-                size="large"
-              ></el-input> -->
               <el-input
+                :prefix-icon="User"
                 v-model="loginForm.username"
                 clearable
                 placeholder="Username"
@@ -22,14 +16,8 @@
               ></el-input>
             </el-form-item>
             <el-form-item prop="password">
+
               <el-input
-                type="password"
-                v-model="loginForm.password"
-                size="large"
-                placeholder="Password"
-                clearable
-              ></el-input>
-              <!-- <el-input
                 type="password"
                 :prefix-icon="Lock"
                 show-password
@@ -37,7 +25,7 @@
                 size="large"
                 placeholder="Password"
                 clearable
-              ></el-input> -->
+              ></el-input>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -58,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-// import { User, Lock } from '@element-plus/icons-vue'
-import { Ref, computed, reactive, ref } from 'vue'
+import { User, Lock } from '@element-plus/icons-vue'
+import { Ref, computed, reactive, ref, getCurrentInstance  } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
@@ -71,6 +59,10 @@ let loading = ref(false)
 
 let useStore = useUserStore()
 let loginForms = ref()
+
+const { appContext } = getCurrentInstance()!
+ElNotification({}, appContext)
+
 
 const loginForm = reactive({
   username: 'admin',
@@ -102,13 +94,14 @@ const login = async () => {
   loading.value = true
   try {
     await useStore.userLogin(loginForm)
-    $router.push('/')
     ElNotification({
       type: 'success',
       message: '登入成功',
       title: `Hi, ${getTime()}好`,
     })
     loading.value = false
+    $router.push('/')
+
   } catch (error) {
     ElNotification({
       type: 'error',

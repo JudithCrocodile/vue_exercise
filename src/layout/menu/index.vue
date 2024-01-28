@@ -31,7 +31,7 @@
 
 
     <!-- 有一個以上的子路由 -->
-    <el-menu-item v-if="item.children.length > 1" :index="item.children[0].path">
+    <el-menu-item v-if="item.children && item.children.length > 1" :index="item.children[0].path">
       <template #title>
         <!-- <el-icon>
           <component :is="item.meta.icon">
@@ -44,6 +44,9 @@
   </template>
 </template>
 <script setup lang="ts" name="Menu">
-defineProps(['menuList'])
+const props = defineProps(['menuList'])
+
+console.log('menuList', props.menuList);
+
 </script>
 <style lang="scss" scoped></style>

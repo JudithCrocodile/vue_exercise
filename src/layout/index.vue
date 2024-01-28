@@ -1,30 +1,15 @@
 <template>
   <div class="layout__container">
-    <Logo />
       <el-scrollbar>
-        <!-- <el-menu
-          active-text-color="#fff"
-          background-color="#001529"
-          text-color="#white"
-        >
-          <el-menu-item index="1">首頁</el-menu-item>
-          <el-menu-item index="2">數據</el-menu-item>
-          
-          <el-sub-menu index="3">
-            <template #title>
-              <span>權限管理</span>
-            </template>
-            <el-menu-item index="3-1">用戶管理</el-menu-item>
-            <el-menu-item index="3-2">角色管理</el-menu-item>
-            <el-menu-item index="3-3">菜單管理</el-menu-item>
-          </el-sub-menu>
-        </el-menu> -->
+
         <el-menu
           background-color="#001529"
           text-color="#959ea6"
         >
-          <!-- <Logo /> -->
+          <Logo />
           <Menu :menuList="userStore.menuRoutes" />
+
+          
         </el-menu>
       </el-scrollbar>
 
@@ -33,8 +18,9 @@
   </div>
 </template>
 <script setup lang="ts">
-// import Logo from './logo/index.vue'
+import Logo from './logo/index.vue'
 import useUserStore from '@/store/modules/user'
+import Menu from './menu/index.vue'
 
 let userStore = useUserStore()
 
