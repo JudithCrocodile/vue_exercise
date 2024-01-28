@@ -52,6 +52,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 import useUserStore from '@/store/modules/user'
+import { useRouter, useRoute } from 'vue-router'
 
 let $router = useRouter()
 let $route = useRoute()

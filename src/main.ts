@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import zhTw from 'element-plus/dist/locale/zh-tw.mjs'
 import 'virtual:svg-icons-register'
+import './permission'
 
 import globalComponent from '@/components'
 import '@/styles/index.scss'
