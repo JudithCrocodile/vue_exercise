@@ -1,29 +1,48 @@
 <template>
   <div class="layout__container">
-      <el-scrollbar>
+    <div class="layout__slider" :class="{'fold': LayOutSettingStore.fold}">
+        <Logo />  
+        <el-scrollbar class="scrollbar">
+          <el-menu
+            background-color="#001529"
+            text-color="#959ea6"
+            :default-active="$route.path"
+            :collapse="LayOutSettingStore.fold"
+          >
+            <Menu :menuList="userStore.menuRoutes" />
+          </el-menu>
+        </el-scrollbar>
+    </div>
 
-        <el-menu
-          background-color="#001529"
-          text-color="#959ea6"
-        >
-          <Logo />
-          <Menu :menuList="userStore.menuRoutes" />
+    <div style="width: 100%;">
+      <div class="layout__tabbar">
+        <Tabbar />
+      </div>
 
-          
-        </el-menu>
-      </el-scrollbar>
-
-    <div class="layout__tabbar"></div>
-    <div class="layout__main"></div>
+      <div class="layout__main">
+        <Main />
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import Logo from './logo/index.vue'
 import useUserStore from '@/store/modules/user'
 import Menu from './menu/index.vue'
+import Main from './main/index.vue'
+import Tabbar from './tabbar/index.vue'
+import useLayOutSettingStore from '@/store/modules/setting'
 
+let LayOutSettingStore = useLayOutSettingStore()
 let userStore = useUserStore()
 
+
+
+</script>
+<script lang="ts">
+export default {
+  name: 'Layout'
+}
 </script>
 
 <style lang="scss" scoped>
@@ -56,18 +75,34 @@ let userStore = useUserStore()
 //   width: 56px;
 // }
 
-.layout_slider {
-  width: $base-menu-background;
-  height: 100vh;
-  background: $base-menu-background;
+.layout__container {
+  display: flex;
+  width: 100vw;
 
-  .scrollbar {
-    width: 100%;
-    height: calc(100vh - $base-menu-logo-height);
+  .layout__slider {
+    color: white;
+    width: $base-menu-width;
+    height: 100vh;
+    background: $base-menu-background;
+    transition: all 0.3s;
 
-    .el-menu {
-      border-right: none;
+    .scrollbar {
+      width: 100%;
+      height: calc(100vh - $base-menu-logo-height);
+
+      .el-menu {
+        border-right: none;
+      }
+    }
+
+    &.fold {
+      width: $base-menu-min-width;
     }
   }
 }
+
+.layout__tabbar {
+  height: 50px;
+}
+
 </style>
