@@ -52,7 +52,6 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 import useUserStore from '@/store/modules/user'
-import { useRouter, useRoute } from 'vue-router'
 
 let $router = useRouter()
 let $route = useRoute()
@@ -67,7 +66,7 @@ ElNotification({}, appContext)
 
 const loginForm = reactive({
   username: 'admin',
-  password: '111111',
+  password: 'atguigu123',
 })
 
 const validatorUsername = (rule: any, value: any, callback: any) => {

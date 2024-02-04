@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { reqLogin, reqUserInfo, reqLogOut } from '@/api/user'
 import type {
-  LoginForm,
+  LoginFormData,
   LoginResponseData,
+  userInfoResponseData,
 } from '@/api/user/type'
 import type { UserState } from './types/type'
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
@@ -19,29 +20,37 @@ let useUserStore = defineStore('User', {
   },
 
   actions: {
-    async userLogin(data: LoginForm) {
+    async userLogin(data: LoginFormData) {
       let result: LoginResponseData = await reqLogin(data)
       // success=>token
       // error=>error.message
       if (result.code === 200) {
-        this.token = (result.data.token as string)
+        this.token = (result.data as string)
         // 持久化
         SET_TOKEN(result.data as string)
-        // return 'ok'
+        this.userName = result.data.name;
+        this.avatar = result.data.avatar;
+        return 'ok'
       } else {
-        return Promise.reject(new Error(result.data as string))
+        return Promise.reject(new Error(result.message as string))
       }
     },
     async userInfo() {
-      let result = await reqUserInfo();
+      let result: userInfoResponseData = await reqUserInfo();
       console.log('result',result);
       
     },
-    userLogout() {
-      this.token = '';
-      this.userName = '';
-      this.avatar = '';
-      REMOVE_TOKEN();
+    async userLogout() {
+      let result: any = await reqLogOut();
+      if (result.code === 200) {
+        this.token = '';
+        this.userName = '';
+        this.avatar = '';
+        REMOVE_TOKEN();        
+      } else {
+        return Promise.reject(new Error(result.message as string))
+      }
+
     }
 
   },
